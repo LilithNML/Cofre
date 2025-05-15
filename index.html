@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tú eres mi mayor tesoro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at center, #2a1a40 0%, #100020 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .scene {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      perspective: 1000px;
+      animation: fadeIn 2s ease;
+    }
+
+    .chest {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      transform-style: preserve-3d;
+    }
+
+    .lid,
+    .base {
+      position: absolute;
+      width: 100%;
+      height: 100px;
+      background: linear-gradient(to bottom, #7a4e28, #3e2613);
+      border: 4px solid gold;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .lid {
+      top: 0;
+      transform-origin: bottom center;
+      animation: openLid 2s ease forwards 1.5s;
+      z-index: 2;
+    }
+
+    .base {
+      top: 100px;
+      z-index: 1;
+    }
+
+    .lock {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 40px;
+      background: gold;
+      border-radius: 5px;
+      box-shadow: inset 0 0 5px #fff, 0 0 10px gold;
+      z-index: 3;
+    }
+
+    .heart {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 100px;
+      height: 90px;
+      animation: revealHeart 1s ease-out forwards 3.3s, beat 1.5s infinite ease-in-out 4.3s;
+      z-index: 4;
+    }
+
+    .message {
+      position: absolute;
+      top: 230px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8em;
+      color: #f8e8a0;
+      text-shadow: 1px 1px 10px #000;
+      opacity: 0;
+      animation: fadeInText 1.5s ease forwards 5.5s;
+      text-align: center;
+    }
+
+    @keyframes openLid {
+      to {
+        transform: rotateX(-120deg);
+      }
+    }
+
+    @keyframes revealHeart {
+      to {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes beat {
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.15);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="chest">
+      <div class="lid"></div>
+      <div class="base"></div>
+      <div class="lock"></div>
+
+      <!-- Corazón SVG dorado -->
+      <svg class="heart" viewBox="0 0 24 22" fill="url(#gold-gradient)" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="gold-gradient" cx="50%" cy="50%" r="70%">
+            <stop offset="10%" stop-color="#ffd700" />
+            <stop offset="90%" stop-color="#b8860b" />
+          </radialGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#ffd700" flood-opacity="0.8" />
+          </filter>
+        </defs>
+        <path
+          filter="url(#glow)"
+          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+          4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 
+          16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 
+          11.54L12 21.35z"
+        />
+      </svg>
+
+      <div class="message">Tú eres mi mayor tesoro</div>
+    </div>
+  </div>
+
+  <!-- Aquí pon tu archivo de sonido local en mp3 -->
+  <audio id="open-sound" preload="auto" src="sonido-cofre.mp3"></audio>
+
+  <script>
+    const openSound = document.getElementById('open-sound');
+
+    // Reproduce el sonido justo cuando empieza la animación del cofre (1.5s)
+    window.onload = () => {
+      setTimeout(() => {
+        openSound.play();
+      }, 1500);
+    };
+  </script>
+</body>
+</html>
